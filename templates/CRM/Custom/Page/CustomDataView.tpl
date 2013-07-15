@@ -45,80 +45,77 @@
       </tr>
       <tr>
         <td id="{$cd_edit.name}_{$index}" class="section-shown form-item">
-          <div class="crm-accordion-wrapper {if $cd_edit.collapse_display eq 0 or $skipTitle} {else}collapsed{/if}">
-            {if !$skipTitle}
-              <div class="crm-accordion-header">
-                {$cd_edit.title}
-              </div>
-            {/if}
-            <div class="crm-accordion-body">
-              {if $groupId and $cvID and $editCustomData}
-                <div class="crm-submit-buttons">
+        <div class="row event-info-wrapper {if $cd_edit.collapse_display eq 0 or $skipTitle} {else}collapsed{/if}">
+        {if !$skipTitle}
+          <div class="span3 event-info-label">
+            {$cd_edit.title}
+          </div>
+        {/if}
+        <div class="span9 event-info-detail">
+        {if $groupId and $cvID and $editCustomData}
+          <div class="crm-submit-buttons">
                   <a href="#"
                      onclick="showDelete( {$cvID}, '{$cd_edit.name}_{$index}', {$customGroupId}, {$contactId} ); return false;"
                      class="button delete-button" title="{ts 1=$cd_edit.title}Delete this %1 record{/ts}">
                     <span><div class="icon delete-icon"></div>{ts}Delete{/ts}</span>
                   </a>
-                </div>
-              {/if}
-              {foreach from=$cd_edit.fields item=element key=field_id}
-                <table class="crm-info-panel">
-                  <tr>
-                    {if $element.options_per_line != 0}
-                      <td class="label">{$element.field_title}</td>
-                      <td class="html-adjust">
-                        {* sort by fails for option per line. Added a variable to iterate through the element array*}
-                        {foreach from=$element.field_value item=val}
-                          {$val}
-                          <br/>
-                        {/foreach}
-                      </td>
-                    {else}
-                      <td class="label">{$element.field_title}</td>
-                      {if $element.field_type == 'File'}
-                        {if $element.field_value.displayURL}
-                          <td class="html-adjust"><a href="#"
+          </div>
+        {/if}
+        {foreach from=$cd_edit.fields item=element key=field_id}
+         <table class="table table-condensed">
+          <tr>
+            {if $element.options_per_line != 0}
+              <th class="span3" scope="row">{$element.field_title}</th>
+              <td class="span9">
+              {* sort by fails for option per line. Added a variable to iterate through the element array*}
+              {foreach from=$element.field_value item=val}
+                {$val}<br/>
+              {/foreach}
+              </td>
+            {else}
+              <th class="span3" scope="row">{$element.field_title}</th>
+              {if $element.field_type == 'File'}
+                {if $element.field_value.displayURL}
+                  <td class="span9"><a href="#"
                                                      onclick="imagePopUp('{$element.field_value.imageURL}'); return false;"><img
                                 src="{$element.field_value.displayURL}" height="100" width="100"></a></td>
-                        {else}
-                          <td class="html-adjust"><a
-                              href="{$element.field_value.fileURL}">{$element.field_value.fileName}</a></td>
-                        {/if}
-                      {else}
-                        {if $element.field_data_type == 'Money'}
-                          {if $element.field_type == 'Text'}
-                            <td class="html-adjust">{$element.field_value|crmMoney}</td>
-                          {else}
-                            <td class="html-adjust">{$element.field_value}</td>
-                          {/if}
-                        {else}
-                          <td class="html-adjust">
-                            {if $element.contact_ref_id}
-                            <a href='{crmURL p="civicrm/contact/view" q="reset=1&cid=`$element.contact_ref_id`"}'>
-                              {/if}
+                {else}
+                  <td class="span9"><a href="{$element.field_value.fileURL}">{$element.field_value.fileName}</a></td>
+                {/if}
+              {else}
+                {if $element.field_data_type == 'Money'}
+                  {if $element.field_type == 'Text'}
+                    <td class="span9">{$element.field_value|crmMoney}</td>
+                  {else}
+                    <td class="span9">{$element.field_value}</td>
+                  {/if}
+                {else}
+                  <td class="span9">
+                    {if $element.contact_ref_id}
+                      <a href='/civicrm/contact/view?reset=1&cid={$element.contact_ref_id}'>
+                  {/if}
                               {if $element.field_data_type == 'Memo'}
                                 {$element.field_value|nl2br}
                               {else}
                                 {$element.field_value}
-                              {/if}
-                              {if $element.contact_ref_id}
-                            </a>
-                            {/if}
-                          </td>
-                        {/if}
-                      {/if}
-                    {/if}
-                  </tr>
-                </table>
-              {/foreach}
-            </div>
-            <!-- end of body -->
-            <div class="clear"></div>
-          </div>
-          <!-- end of main accordian -->
-        </td>
-      </tr>
-    </table>
+                              {/if}                  {if $element.contact_ref_id}
+                    </a>
+                  {/if}
+                  </td>
+                {/if}
+              {/if}
+            {/if}
+          </tr>
+         </table>
+        {/foreach}
+      </div> 
+			<!-- end of body -->
+
+     </div> 
+			<!-- end of main accordian -->
+     </td>
+    </tr>
+  </table>
   {/foreach}
 {/foreach}
 {literal}

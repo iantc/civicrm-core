@@ -22,21 +22,16 @@
  | see the CiviCRM license FAQ at http://civicrm.org/licensing        |
  +--------------------------------------------------------------------+
 *}
-<div class="block-civicrm crm-container">
-<div id="crm-create-new-wrapper">
-  <a id="crm-create-new-link" class="button" href="#"><span><div class="icon dropdown-icon"></div>{ts}Create New{/ts}</span></a>
-    <div id="crm-create-new-list" class="ac_results">
-      <div class="crm-create-new-list-inner">
-      <ul>
+<div class="block-civicrm">
+  <div id="crm-create-new-wrapper" class="btn-group">
+    <a class="btn dropdown-toggle" data-toggle="dropdown" >{ts}Create New{/ts} <span class="caret"></span></a>
+    <ul class="dropdown-menu">
       {foreach from=$shortCuts item=short}
-            <li><a href="{$short.url}" class="crm-{$short.ref}">{$short.title}</a></li>
-          {/foreach}
-      </ul>
-      </div>
-    </div>
+        <li><a href="{$short.url}" class="crm-{$short.ref}">{$short.title}</a></li>
+      {/foreach}
+    </ul>
   </div>
 </div>
-<div class='clear'></div>
 {literal}
 <script>
 

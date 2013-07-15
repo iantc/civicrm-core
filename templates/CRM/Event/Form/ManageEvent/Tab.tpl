@@ -26,8 +26,8 @@
 {* Don't show action buttons for event templates *}
 {if ! $isTemplate}
     <div class="crm-actions-ribbon crm-event-manage-tab-actions-ribbon">
-      <ul id="actions">
-      <li><div id="crm-event-links-wrapper">
+    	<ul id="actions" class="nav nav-pills">
+     <li><div id="crm-event-links-wrapper">
             <a id="crm-event-links-link" class="button"><span><div class="icon dropdown-icon"></div>{ts}Event Links{/ts}</span></a>
             <div class="ac_results" id="crm-event-links-list">
                  <div class="crm-event-links-list-inner">
