@@ -57,30 +57,30 @@
     {/if}
 
     <div id="crm-submit-buttons" class="crm-submit-buttons">
-      {include file="CRM/common/formButtons.tpl" location="top"}
+        {include file="CRM/common/formButtons.tpl" location="top"}
     </div>
 
     {if $event.confirm_text}
         <div id="intro_text" class="crm-section event_confirm_text-section">
-          <p>{$event.confirm_text}</p>
+            <p>{$event.confirm_text}</p>
         </div>
     {/if}
 
-    <div class="crm-group event_info-group">
-        <div class="header-dark">
+    <div class="crm-group event_info-group row-fluid event-info-wrapper">
+        <div class="event-info-label span3">
             {ts}Event Information{/ts}
         </div>
-        <div class="display-block">
+        <div class="display-block event-info-detail span9">
             {include file="CRM/Event/Form/Registration/EventInfoBlock.tpl"}
         </div>
     </div>
 
     {if $pcpBlock}
-    <div class="crm-group pcp_display-group">
-        <div class="header-dark">
+    <div class="crm-group pcp_display-group row-fluid event-info-wrapper">
+        <div class="event-info-label span3">
            {ts}Contribution Honor Roll{/ts}
         </div>
-        <div class="display-block">
+        <div class="display-block event-info-detail span9">
             {if $pcp_display_in_roll}
                 {ts}List my contribution{/ts}
                 {if $pcp_is_anonymous}
@@ -102,47 +102,49 @@
     {/if}
 
     {if $paidEvent}
-        <div class="crm-group event_fees-group">
-            <div class="header-dark">
+        <div class="crm-group event_fees-group row-fluid event-info-wrapper">
+            <div class="event-info-label span3">
                 {$event.fee_label}
             </div>
-            {if $lineItem}
-                {include file="CRM/Price/Page/LineItem.tpl" context="Event"}
-            {elseif $amounts || $amount == 0}
-          <div class="crm-section no-label amount-item-section">
-                    {foreach from= $amounts item=amount key=level}
-              <div class="content">
-                  {$amount.amount|crmMoney}&nbsp;&nbsp;{$amount.label}
-              </div>
-                  <div class="clear"></div>
-                    {/foreach}
-            </div>
-                {if $totalAmount}
-                <div class="crm-section no-label total-amount-section">
-                    <div class="content bold">{ts}Total Amount{/ts}:&nbsp;&nbsp;{$totalAmount|crmMoney}</div>
-                    <div class="clear"></div>
-                  </div>
-                {/if}
-                {if $hookDiscount.message}
-                    <div class="crm-section hookDiscount-section">
-                        <em>({$hookDiscount.message})</em>
+            <div class="display-block event-info-detail span9">
+                {if $lineItem}
+                    {include file="CRM/Price/Page/LineItem.tpl" context="Event"}
+                {elseif $amounts || $amount == 0}
+                    <div class="crm-section no-label amount-item-section">
+                        {foreach from= $amounts item=amount key=level}
+                            <div class="content">
+                                {$amount.amount|crmMoney}&nbsp;&nbsp;{$amount.label}
+                            </div>
+                            <div class="clear"></div>
+                        {/foreach}
                     </div>
+                    {if $totalAmount}
+                        <div class="crm-section no-label total-amount-section">
+                            <div class="content bold">{ts}Total Amount{/ts}:&nbsp;&nbsp;{$totalAmount|crmMoney}</div>
+                            <div class="clear"></div>
+                        </div>
+                    {/if}
+                    {if $hookDiscount.message}
+                        <div class="crm-section hookDiscount-section">
+                            <em>({$hookDiscount.message})</em>
+                        </div>
+                    {/if}
                 {/if}
             {/if}
 
+            </div>
         </div>
     {/if}
 
     {if $event.participant_role neq 'Attendee' and $defaultRole}
-        <div class="crm-group participant_role-group">
-            <div class="header-dark">
+        <div class="crm-group participant_role-group row-fluid event-info-wrapper">
+            <div class="event-info-label span3">
                 {ts}Participant Role{/ts}
             </div>
-            <div class="crm-section no-label participant_role-section">
+            <div class="crm-section no-label participant_role-section event-info-detail span9">
                 <div class="content">
                     {$event.participant_role}
                 </div>
-              <div class="clear"></div>
             </div>
         </div>
     {/if}
@@ -150,32 +152,34 @@
     {include file="CRM/Event/Form/Registration/DisplayProfile.tpl"}
 
     {if $contributeMode ne 'notify' and !$is_pay_later and $paidEvent and !$isAmountzero and !$isOnWaitlist and !$isRequireApproval}
-      <div class="crm-group billing_name_address-group">
-            <div class="header-dark">
+        <div class="crm-group billing_name_address-group row-fluid event-info-wrapper">
+            <div class="event-info-label span3">
                 {ts}Billing Name and Address{/ts}
             </div>
-          <div class="crm-section no-label billing_name-section">
-            <div class="content">{$billingName}</div>
-            <div class="clear"></div>
-          </div>
-          <div class="crm-section no-label billing_address-section">
-            <div class="content">{$address|nl2br}</div>
-            <div class="clear"></div>
-          </div>
-      </div>
+            <div class="display-block event-info-detail span9">
+                <div class="crm-section no-label billing_name-section">
+                    <div class="content">{$billingName}</div>
+                    <div class="clear"></div>
+                </div>
+                <div class="crm-section no-label billing_address-section">
+                    <div class="content">{$address|nl2br}</div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
     {/if}
 
     {if $contributeMode eq 'direct' and ! $is_pay_later and !$isAmountzero and !$isOnWaitlist and !$isRequireApproval}
-        <div class="crm-group credit_card-group">
-            <div class="header-dark">
+        <div class="crm-group credit_card-group row-fluid event-info-wrapper">
+            <div class="event-info-label span3">
                 {ts}Credit Card Information{/ts}
             </div>
-            <div class="crm-section no-label credit_card_details-section">
+            <div class="crm-section no-label credit_card_details-section event-info-detail span9">
                 <div class="content">{$credit_card_type}</div>
-            <div class="content">{$credit_card_number}</div>
-            <div class="content">{ts}Expires{/ts}: {$credit_card_exp_date|truncate:7:''|crmDate}</div>
-            <div class="clear"></div>
-          </div>
+                <div class="content">{$credit_card_number}</div>
+                <div class="content">{ts}Expires{/ts}: {$credit_card_exp_date|truncate:7:''|crmDate}</div>
+                <div class="clear"></div>
+            </div>
         </div>
     {/if}
 
@@ -191,19 +195,19 @@
         <fieldset><legend>{ts}Checkout with Google{/ts}</legend>
             <div class="crm-section google_checkout-section">
                 <table class="form-layout-compressed">
-                  <tr>
-                    <td class="description">{ts}Click the Google Checkout button to continue.{/ts}</td>
-                  </tr>
-                  <tr>
-                    <td>{$form._qf_Confirm_next_checkout.html} <span style="font-size:11px; font-family: Arial, Verdana;">Checkout securely.  Pay without sharing your financial information. </span></td>
-                  </tr>
+                    <tr>
+                        <td class="description">{ts}Click the Google Checkout button to continue.{/ts}</td>
+                    </tr>
+                    <tr>
+                        <td>{$form._qf_Confirm_next_checkout.html} <span style="font-size:11px; font-family: Arial, Verdana;">Checkout securely.  Pay without sharing your financial information. </span></td>
+                    </tr>
                 </table>
             </div>
         </fieldset>
     {/if}
 
     <div id="crm-submit-buttons" class="crm-submit-buttons">
-      {include file="CRM/common/formButtons.tpl" location="bottom"}
+        {include file="CRM/common/formButtons.tpl" location="bottom"}
     </div>
 
     {if $event.confirm_footer_text}

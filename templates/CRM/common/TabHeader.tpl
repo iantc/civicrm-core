@@ -31,7 +31,7 @@
 <div class="crm-block crm-content-block">
   {if $tabHeader and count($tabHeader) gt 1}
     <div id="mainTabContainer">
-    <ul>
+    <ul class="nav nav-tabs">
        {foreach from=$tabHeader key=tabName item=tabValue}
           <li id="tab_{$tabName}" class="crm-tab-button ui-corner-all {if !$tabValue.valid}disabled{/if}">
           {if $tabValue.link and $tabValue.active}

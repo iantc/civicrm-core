@@ -61,7 +61,7 @@
 {/if}
 
 {if $contact_id}
-<div class="messages status no-popup" id="crm-event-register-different">
+<div class="welcome alert alert-warning" id="crm-event-register-different">
     {ts 1=$display_name}Welcome %1{/ts}. (<a href="{crmURL p='civicrm/event/register' q="cid=0&reset=1&id=`$event.id`"}" title="{ts}Click here to register a different person for this event.{/ts}">{ts 1=$display_name}Not %1, or want to register a different person{/ts}</a>?)</div>
 {/if}
 {if $event.intro_text}
@@ -78,7 +78,7 @@
 
 {if $form.additional_participants.html}
     <div class="crm-section additional_participants-section" id="noOfparticipants">
-        <div class="label">{$form.additional_participants.label}</div>
+        <div class="field-label">{$form.additional_participants.label}</div>
         <div class="content">
             {$form.additional_participants.html}{if $contact_id || $contact_id == NULL} &nbsp; ({ts}including yourself{/ts}){/if}<br />
             <span class="description">{ts}Fill in your registration information on this page. If you are registering additional people, you will be able to enter their registration information after you complete this page and click &quot;Continue&quot;.{/ts}</span>
@@ -95,12 +95,13 @@
 
     {if $form.is_pay_later}
         <div class="crm-section pay_later-section">
-          <div class="label">&nbsp;</div>
+	        <div class="field-label">&nbsp;</div>
             <div class="content">{$form.is_pay_later.html}&nbsp;{$form.is_pay_later.label}</div>
             <div class="clear"></div>
         </div>
     {/if}
 {/if}
+{include file="CRM/common/hookElements.tpl"}
 {if $pcp && $is_honor_roll }
     <fieldset class="crm-group pcp-group">
         <div class="crm-section pcp-section">
@@ -109,28 +110,24 @@
                     {$form.pcp_display_in_roll.html} &nbsp;
                     {$form.pcp_display_in_roll.label}
                 </div>
-                <div class="clear"></div>
             </div>
             <div id="nameID" class="crm-section is_anonymous-section">
                 <div class="content">
                     {$form.pcp_is_anonymous.html}
                 </div>
-                <div class="clear"></div>
             </div>
             <div id="nickID" class="crm-section pcp_roll_nickname-section">
-                <div class="label">{$form.pcp_roll_nickname.label}</div>
+                <div class="field-label">{$form.pcp_roll_nickname.label}</div>
                 <div class="content">{$form.pcp_roll_nickname.html}
                 <div class="description">{ts}Enter the name you want listed with this contribution. You can use a nick name like 'The Jones Family' or 'Sarah and Sam'.{/ts}</div>
                 </div>
-                <div class="clear"></div>
             </div>
             <div id="personalNoteID" class="crm-section pcp_personal_note-section">
-                <div class="label">{$form.pcp_personal_note.label}</div>
+                <div class="field-label">{$form.pcp_personal_note.label}</div>
                 <div class="content">
                     {$form.pcp_personal_note.html}
                     <div class="description">{ts}Enter a message to accompany this contribution.{/ts}</div>
                 </div>
-                <div class="clear"></div>
             </div>
         </div>
     </fieldset>
@@ -144,11 +141,10 @@
 {if $form.payment_processor.label}
 <fieldset class="crm-group payment_options-group" style="display:none;">
   <legend>{ts}Payment Options{/ts}</legend>
-  <div class="crm-section payment_processor-section">
-    <div class="label">{$form.payment_processor.label}</div>
-    <div class="content">{$form.payment_processor.html}</div>
-    <div class="clear"></div>
-  </div>
+<div class="crm-section payment_processor-section row-fluid">
+  <div class="field-label span3">{$form.payment_processor.label}</div>
+  <div class="content span9">{$form.payment_processor.html}</div>
+</div>
 </fieldset>
 {/if}
 
