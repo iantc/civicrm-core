@@ -31,20 +31,19 @@
 <div class="crm-block crm-content-block">
   {if $tabHeader and count($tabHeader) gt 1}
     <div id="mainTabContainer">
-    <ul class="nav nav-tabs">
-       {foreach from=$tabHeader key=tabName item=tabValue}
-          <li id="tab_{$tabName}" class="crm-tab-button ui-corner-all {if !$tabValue.valid}disabled{/if}">
-          {if $tabValue.link and $tabValue.active}
-             <a href="{$tabValue.link}" title="{$tabValue.title}{if !$tabValue.valid} ({ts}disabled{/ts}){/if}">{$tabValue.title}</a>
-          {else}
-             <span {if !$tabValue.valid} title="{ts}disabled{/ts}"{/if}>{$tabValue.title}</span>
-          {/if}
+      <ul class="nav nav-tabs">
+         {foreach from=$tabHeader key=tabName item=tabValue}
+            <li id="tab_{$tabName}" class="crm-tab-button ui-corner-all {if !$tabValue.valid}disabled{/if}">
+            {if $tabValue.link and $tabValue.active}
+              <a href="{$tabValue.link}" title="{$tabValue.title}{if !$tabValue.valid} ({ts}disabled{/ts}){/if}">{$tabValue.title}</a>
+            {else}
+              <span {if !$tabValue.valid} title="{ts}disabled{/ts}"{/if}>{$tabValue.title}</span>
+            {/if}
           </li>
        {/foreach}
-    </ul>
+      </ul>
     </div>
   {/if}
-  <div class="clear"></div>
 </div> {* crm-content-block ends here *}
 
 <script type="text/javascript">

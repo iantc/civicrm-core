@@ -31,12 +31,12 @@
     {foreach from=$priceSet.fields item=element key=field_id}
         {* Skip 'Admin' visibility price fields since this tpl is used in online registration. *}
         {if $element.visibility EQ 'public' || $context eq 'standalone' || $context eq 'search' || $context eq 'participant' || $context eq 'dashboard' || $action eq 1024}
-            <div class="crm-section {$element.name}-section">
+            <div class="crm-section {$element.name}-section row-fluid">
             {if ($element.html_type eq 'CheckBox' || $element.html_type == 'Radio') && $element.options_per_line}
               {assign var="element_name" value="price_"|cat:$field_id}
                 {* quickConfig price sets - use fee_label from event record *}
-                <div class="label">{if $quickConfig && $extends NEQ 'Membership'}{$event.fee_label} <span class="crm-marker" title="This field is required.">*</span>{else}{$form.$element_name.label}{/if}</div>
-                <div class="content {$element.name}-content">
+                <div class="field-label span3">{if $quickConfig && $extends NEQ 'Membership'}{$event.fee_label} <span class="crm-marker" title="This field is required.">*</span>{else}{$form.$element_name.label}{/if}</div>
+                <div class="content {$element.name}-content span9">
                 {assign var="rowCount" value="1"}
                 {assign var="count" value="1"}
                 {foreach name=outer key=key item=item from=$form.$element_name}
@@ -56,13 +56,12 @@
                     <div class="description">{$element.help_post}</div>
                 {/if}
                 </div>
-                <div class="clear"></div>
 
             {else}
 
                 {assign var="element_name" value="price_"|cat:$field_id}
 
-                <div class="label">{$form.$element_name.label}</div>
+                <div class="field-label">{$form.$element_name.label}</div>
                 <div class="content {$element.name}-content">{$form.$element_name.html}
                   {if $element.is_display_amounts && $element.html_type eq 'Text'}
                     <span class="price-field-amount">
@@ -71,8 +70,6 @@
                   {/if}
                       {if $element.help_post}<br /><span class="description">{$element.help_post}</span>{/if}
                 </div>
-                <div class="clear"></div>
-
             {/if}
             </div>
         {/if}
