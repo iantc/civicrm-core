@@ -60,13 +60,13 @@
   </div>
 {/if}
 {if call_user_func(array('CRM_Core_Permission','check'), 'access CiviEvent')}
-  <div class="crm-actions-ribbon crm-event-manage-tab-actions-ribbon">
+  <div class="crm-actions-ribbon crm-event-manage-tab-actions-ribbon btn-group">
   	<ul id="actions">
       {if call_user_func(array('CRM_Core_Permission','check'), 'edit all events')}
       	<li>
           <div id="crm-event-links-wrapper">
     	      <div id="crm-event-configure-link" class="btn"><span title="{ts}Configure this event.{/ts}"><div class="icon icon-wrench"></div></span></div><!-- change icon class to work with Font Awesome - ic - 2013-05-04 -->
-      	      <div class="ac_results" id="crm-event-links-list" style="margin-left: -25px;">
+      	      <div class="dropdown-menu" id="crm-event-links-list">
   	      	    <div class="crm-event-links-list-inner">
     	      	   	<ul>
             		    <li><a title="{ts}Info and Settings{/ts}" href="{crmURL p='civicrm/event/manage/settings' q="reset=1&action=update&id=`$event.id`"}">{ts}Info and Settings{/ts}</a></li>
@@ -88,7 +88,7 @@
     <li>
       <div id="crm-participant-wrapper">
         <div id="crm-participant-links" class="btn"><span title="{ts}Participant listing links.{/ts}"><div class="icon icon-search"></div></div><!-- change icon class to work with Font Awesome - ic - 2013-05-04 -->
-  	      <div class="ac_results" id="crm-participant-list" style="margin-left: -25px;">
+  	      <div class="dropdown-menu" id="crm-participant-list">
       	   <div class="crm-participant-list-inner">
 	      	   	<ul>
                 {if $findParticipants.statusCounted}

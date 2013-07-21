@@ -101,7 +101,6 @@
         </div>
     {/if}
 {/if}
-{include file="CRM/common/hookElements.tpl"}
 {if $pcp && $is_honor_roll }
     <fieldset class="crm-group pcp-group">
         <div class="crm-section pcp-section">
