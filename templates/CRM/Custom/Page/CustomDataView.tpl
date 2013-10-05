@@ -1,8 +1,8 @@
 {*
  +--------------------------------------------------------------------+
- | CiviCRM version 4.3                                                |
+ | CiviCRM version 4.2                                                |
  +--------------------------------------------------------------------+
- | Copyright CiviCRM LLC (c) 2004-2013                                |
+ | Copyright CiviCRM LLC (c) 2004-2012                                |
  +--------------------------------------------------------------------+
  | This file is a part of CiviCRM.                                    |
  |                                                                    |
@@ -27,15 +27,12 @@
 {assign var="showEdit" value=1}
 {foreach from=$viewCustomData item=customValues key=customGroupId}
   {foreach from=$customValues item=cd_edit key=cvID}
-    <table class="no-border">
+    <table class="no-border" id="{$cd_edit.name}_{$index}_wrapper">
       {assign var='index' value=$groupId|cat:"_$cvID"}
-      {if ($editOwnCustomData and $showEdit) or ($showEdit and $editCustomData and $groupId)}
+      {if $editOwnCustomData or ($showEdit and $editCustomData and $groupId)}
         <tr>
           <td>
-            <a
-              href="{crmURL p="civicrm/contact/view/cd/edit" q="tableId=`$contactId`&cid=`$contactId`&groupID=`$groupId`&action=update&reset=1"}"
-              class="button" style="margin-left: 6px;"><span><div
-                  class="icon edit-icon"></div>{ts 1=$cd_edit.title}Edit %1{/ts}</span></a><br/><br/>
+            <a href="{crmURL p="civicrm/contact/view/cd/edit" q="tableId=`$contactId`&cid=`$contactId`&groupID=`$groupId`&action=update&reset=1"}" class="button" style="margin-left: 6px;"><span><div class="icon edit-icon"></div>{ts 1=$cd_edit.title}Edit %1{/ts}</span></a><br/><br/>
           </td>
         </tr>
       {/if}
@@ -45,7 +42,7 @@
       </tr>
       <tr>
         <td id="{$cd_edit.name}_{$index}" class="section-shown form-item">
-        <div class="row event-info-wrapper {if $cd_edit.collapse_display eq 0 or $skipTitle} {else}collapsed{/if}">
+        <div class="row event-info-wrapper">
         {if !$skipTitle}
           <div class="span3 event-info-label">
             {$cd_edit.title}
@@ -54,11 +51,9 @@
         <div class="span9 event-info-detail">
         {if $groupId and $cvID and $editCustomData}
           <div class="crm-submit-buttons">
-                  <a href="#"
-                     onclick="showDelete( {$cvID}, '{$cd_edit.name}_{$index}', {$customGroupId}, {$contactId} ); return false;"
-                     class="button delete-button" title="{ts 1=$cd_edit.title}Delete this %1 record{/ts}">
-                    <span><div class="icon delete-icon"></div>{ts}Delete{/ts}</span>
-                  </a>
+            <a href="javascript:showDelete( {$cvID}, '{$cd_edit.name}_{$index}', {$customGroupId}, {$contactId} );" class="button delete-button" title="{ts 1=$cd_edit.title}Delete this %1 record{/ts}">
+             <span><div class="icon delete-icon"></div>{ts}Delete{/ts}</span>
+            </a>
           </div>
         {/if}
         {foreach from=$cd_edit.fields item=element key=field_id}
@@ -76,9 +71,7 @@
               <th class="span3" scope="row">{$element.field_title}</th>
               {if $element.field_type == 'File'}
                 {if $element.field_value.displayURL}
-                  <td class="span9"><a href="#"
-                                                     onclick="imagePopUp('{$element.field_value.imageURL}'); return false;"><img
-                                src="{$element.field_value.displayURL}" height="100" width="100"></a></td>
+                  <td class="span9"><a href="javascript:imagePopUp('{$element.field_value.imageURL}')" ><img src="{$element.field_value.displayURL}" height = "100" width="100"></a></td>
                 {else}
                   <td class="span9"><a href="{$element.field_value.fileURL}">{$element.field_value.fileName}</a></td>
                 {/if}
@@ -94,11 +87,8 @@
                     {if $element.contact_ref_id}
                       <a href='/civicrm/contact/view?reset=1&cid={$element.contact_ref_id}'>
                   {/if}
-                              {if $element.field_data_type == 'Memo'}
-                                {$element.field_value|nl2br}
-                              {else}
-                                {$element.field_value}
-                              {/if}                  {if $element.contact_ref_id}
+                  {$element.field_value}
+                  {if $element.contact_ref_id}
                     </a>
                   {/if}
                   </td>
@@ -108,50 +98,48 @@
           </tr>
          </table>
         {/foreach}
-      </div> 
-			<!-- end of body -->
-
-     </div> 
-			<!-- end of main accordian -->
+      </div> <!-- end of body -->
+     </div> <!-- end of main accordian -->
      </td>
     </tr>
   </table>
   {/foreach}
 {/foreach}
-{literal}
+  {literal}
   <script type="text/javascript">
-    cj(function () {
-      cj().crmAccordions();
-    });
+  cj(function() {
+    cj().crmaccordions();
+  });
   </script>
-{/literal}
+  {/literal}
 {*currently delete is available only for tab custom data*}
 {if $groupId}
-  <script type="text/javascript">
+<script type="text/javascript">
     {literal}
-    function hideStatus(valueID, groupID) {
-      cj('#statusmessg_' + groupID + '_' + valueID).hide();
+    function hideStatus( valueID, groupID ) {
+        cj( '#statusmessg_'  + groupID + '_' + valueID ).hide( );
     }
-    function showDelete(valueID, elementID, groupID, contactID) {
-      var confirmMsg = '{/literal}{ts escape='js'}Are you sure you want to delete this record?{/ts}{literal} &nbsp; <a href="#" onclick="deleteCustomValue( ' + valueID + ',\'' + elementID + '\',' + groupID + ',' + contactID + ' ); return false;" style="text-decoration: underline;">{/literal}{ts escape='js'}Yes{/ts}{literal}</a>&nbsp;&nbsp;&nbsp;<a href="#" onclick="hideStatus( ' + valueID + ', ' + groupID + ' ); return false;" style="text-decoration: underline;">{/literal}{ts escape='js'}No{/ts}{literal}</a>';
-      cj('tr#statusmessg_' + groupID + '_' + valueID).show().children().find('span').html(confirmMsg);
+    function showDelete( valueID, elementID, groupID, contactID ) {
+        var confirmMsg = '{/literal}{ts}Are you sure you want to delete this record?{/ts}{literal} &nbsp; <a href="javascript:deleteCustomValue( ' + valueID + ',\'' + elementID + '\',' + groupID + ',' + contactID + ' );" style="text-decoration: underline;">{/literal}{ts}Yes{/ts}{literal}</a>&nbsp;&nbsp;&nbsp;<a href="javascript:hideStatus( ' + valueID + ', ' +  groupID + ' );" style="text-decoration: underline;">{/literal}{ts}No{/ts}{literal}</a>';
+        cj( 'tr#statusmessg_' + groupID + '_' + valueID ).show( ).children().find('span').html( confirmMsg );
     }
-    function deleteCustomValue(valueID, elementID, groupID, contactID) {
-      var postUrl = {/literal}"{crmURL p='civicrm/ajax/customvalue' h=0 }"{literal};
-      cj.ajax({
-        type: "POST",
-        data: "valueID=" + valueID + "&groupID=" + groupID + "&contactId=" + contactID + "&key={/literal}{crmKey name='civicrm/ajax/customvalue'}{literal}",
-        url: postUrl,
-        success: function (html) {
-          cj('#' + elementID).hide();
-          hideStatus(valueID, groupID);
-          CRM.alert('', '{/literal}{ts escape="js"}Record Deleted{/ts}{literal}', 'success');
-          var element = cj('.ui-tabs-nav #tab_custom_' + groupID + ' a');
-          cj(element).html(cj(element).attr('title') + ' (' + html + ') ');
-        }
-      });
+    function deleteCustomValue( valueID, elementID, groupID, contactID ) {
+        var postUrl = {/literal}"{crmURL p='civicrm/ajax/customvalue' h=0 }"{literal};
+        cj.ajax({
+          type: "POST",
+          data:  "valueID=" + valueID + "&groupID=" + groupID +"&contactId=" + contactID + "&key={/literal}{crmKey name='civicrm/ajax/customvalue'}{literal}",
+          url: postUrl,
+          success: function(html){
+              cj( '#' + elementID ).hide( );
+              var resourceBase   = {/literal}"{$config->resourceBase}"{literal};
+              var successMsg = '{/literal}{ts escape="js"}The selected record has been deleted.{/ts}{literal} &nbsp;&nbsp;<a href="javascript:hideStatus( ' + valueID + ',' + groupID + ');"><img title="{/literal}{ts}close{/ts}{literal}" src="' +resourceBase+'i/close.png"/></a>';
+              cj( 'tr#statusmessg_'  + groupID + '_' + valueID ).show( ).children().find('span').html( successMsg );
+        var element = cj( '.ui-tabs-nav #tab_custom_' + groupID + ' a' );
+        cj(element).html(cj(element).attr('title') + ' ('+ html+') ');
+          }
+        });
     }
     {/literal}
-  </script>
+</script>
 {/if}
 

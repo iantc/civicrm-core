@@ -129,7 +129,6 @@
                             <em>({$hookDiscount.message})</em>
                         </div>
                     {/if}
-                {/if}
             {/if}
 
             </div>

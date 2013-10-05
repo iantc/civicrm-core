@@ -42,12 +42,25 @@
       {if substr_count($element.field_title,'Information') > 0}
         {assign var=moreInfo value=$element.field_value}
       {/if}
+      {if substr_count($element.field_title,'Archive') > 0}
+        {assign var=archive value=$element.field_value}
+      {/if}
     {/foreach}
   {/foreach}
 {/foreach}
+
 <div class="subtitle-wrapper">
   <h2>{$SubTitle}</h2>
 </div>
+{crmAPI var='result' entity='Event' action='getsingle' sequential=1 id='60'}
+{foreach from=$result.values item=Event}
+  <li>{$Event.some_field}</li>
+{/foreach}
+{if $archive!=''}
+<div class="archive-link">
+  <a href="{$archive|strip_tags}" target="_blank" class="btn btn-small">Webinar Archive</a>
+</div>
+{/if}
 {if $allowRegistration}
   <div class="action-link section register_link-section register_link-top">
     <a href="{$registerURL}" title="{$registerText}" class="btn btn-info crm-register-button"><span>{$registerText}</span></a>
@@ -179,7 +192,7 @@
         </div>
       {/if}
     	<div class="event-info">
-        <div class="event-instructor">Instructor(s): {$Instructors}</div>
+        <div class="event-instructor">{$Instructors}</div>
       	{if $event.summary}
     	    <div class="crm-section event_summary-section">
             {$event.summary}

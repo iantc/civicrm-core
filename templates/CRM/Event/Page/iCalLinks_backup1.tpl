@@ -1,5 +1,4 @@
-<?php
-/*
+{*
  +--------------------------------------------------------------------+
  | CiviCRM version 4.3                                                |
  +--------------------------------------------------------------------+
@@ -23,41 +22,10 @@
  | GNU Affero General Public License or the licensing of CiviCRM,     |
  | see the CiviCRM license FAQ at http://civicrm.org/licensing        |
  +--------------------------------------------------------------------+
-*/
-
-/**
- *
- * @package CRM
- * $Id$
- *
- */
-
-/**
- * Dummy page for details of Email
- *
- */
-class CRM_Contact_Page_View_Useradd extends CRM_Core_Page {
-
-  /**
-   * Run the page.
-   *
-   * This method is called after the page is created.
-   *
-   * @return void
-   * @access public
-   *
-   */
-  function run() {
-    $controller = new CRM_Core_Controller_Simple('CRM_Contact_Form_Task_Useradd',
-      ts('Add User'),
-      CRM_Core_Action::ADD
-    );
-    $controller->setEmbedded(TRUE);
-
-    $controller->process();
-    $controller->run();
-
-    return parent::run();
-  }
-}
-
+*}
+{* Display icons / links for ical download and feed for EventInfo.tpl and ThankYou.tpl *}
+{capture assign=icalFile}{crmURL p='civicrm/event/ical' q="reset=1&id=`$event.id`" fe=1 a=1}{/capture}
+{capture assign=icalFeed}{crmURL p='civicrm/event/ical' q="reset=1&list=1&id=`$event.id`" fe=1 a=1}{/capture}
+<div class="action-link section iCal_links-section">
+    <a href="{$icalFile}" title="{ts}Download iCalendar entry for this event.{/ts}"><i class="icon icon-calendar"></i></a>&nbsp;&nbsp;<a href="{$icalFeed}" class="btn btn-warning btn-small ical-link-button" title="{ts}iCalendar feed for this event.{/ts}">ICal</a>
+</div>

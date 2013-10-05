@@ -31,13 +31,12 @@
         <div id="crm-container" class="crm-container" lang="{$config->lcMessages|truncate:2:"":true}" xml:lang="{$config->lcMessages|truncate:2:"":true}">
             {foreach from=$profileFields item=field key=rowName}
               <div id="row-{$rowName}" class="crm-section {$rowName}-section">
-                <div class="label">
+                <div class="label-wrapper">
                     {$field.label}
                 </div>
                  <div class="content">
                     {$field.value}
                  </div>
-                 <div class="clear"></div>
               </div>
             {/foreach}
         </div>

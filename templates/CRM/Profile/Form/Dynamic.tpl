@@ -185,7 +185,7 @@ function proccessMultiRecordForm(formData, jqForm, options) {
           </div>{* end of main edit section div*}
           {else}
           <div id="editrow-{$n}" class="crm-section editrow_{$n}-section form-item">
-            <div class="label">
+            <div class="label-wrapper">
               {$form.$n.label}
             </div>
             <div class="edit-value content">
